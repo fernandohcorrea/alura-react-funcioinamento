@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CardNota from "./CardNota";
+import CardNota from "../CardNota/CardNota";
 
 class ListaDeNotas extends Component {
   state = {
@@ -18,10 +18,9 @@ class ListaDeNotas extends Component {
   render() {
     return (
       <ul className="list">
-        {this.state.notas.map((NoteData) => {
+        {this.state.notas.map((NoteData, index) => {
           return (
-            <li>
-              <div>{NoteData.title}</div>
+            <li key={index}>
               <CardNota />
             </li>
           );
