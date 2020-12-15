@@ -4,8 +4,9 @@ import './formcadastro.css'
 
 class FormCadastro extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.title = "";
     this.note = "";
   }
@@ -19,11 +20,9 @@ class FormCadastro extends Component {
   }
 
   onFormCadastroSubmit(event){
-    console.table([this.title, this.note]);
-    console.log("Enviar");
-    this.title = "";
-    this.note = "";
-    console.log("Apagar");
+    event.preventDefault();
+    event.stopPropagation();
+    this.props.createNote(this.title, this.note)
   }
 
   render() {
