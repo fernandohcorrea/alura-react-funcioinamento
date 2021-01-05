@@ -23,12 +23,22 @@ class App extends Component {
     this.setState({dataNotes : this.listNotes});
   }
 
+  deletarNota(index){
+    let arrayNotas = this.state.dataNotes;
+    arrayNotas.splice(index,1);
+    this.setState(
+      Object.apply(this.state, {
+        dataNotes: arrayNotas
+      })
+    )
+  }
+
 
   render(){
     return (
       <section className="conteudo">
         <FormCadastro createNote={this.criarNota.bind(this)} />
-        <ListaDeNotas listNotes={this.state.dataNotes}/>
+        <ListaDeNotas listNotes={this.state.dataNotes} doDeleteNota={this.deletarNota.bind(this)}/>
       </section>
     );
   } 
