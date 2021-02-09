@@ -1,0 +1,25 @@
+.lista-categorias {
+    display: flex;
+    flex-direction: row;
+    margin-top: 12px;
+}
+
+.lista-categorias_lista {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.lista-categorias_item {
+    background-color: var(--secundaria);
+    color: #FFFFFF;
+    border: 0px solid;
+    border-radius: 10px;
+    padding: 4px 8px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.lista-categorias_input {
+    margin-right: 20px
+}
