@@ -5,12 +5,13 @@ import "./listadecategorias.css";
 class ListaDeCategorias extends Component {
 
   constructor(props) {
-    console.log(props);
     super(props);
   }
 
   onKeyUp(event){
     if(event.key === 'Enter'){
+      
+      debugger;
       this.props.doCreateCategoria(event.target.value);
     }
   }
