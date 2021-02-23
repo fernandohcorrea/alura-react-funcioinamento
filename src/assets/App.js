@@ -12,13 +12,24 @@ class App extends Component {
 
     this.state = {
       dataNotes: [],
-      dataListaDeCategorias: []
+      dataListaDeCategorias: [{
+        title: "Música"
+      },{
+        title: "Game"
+      }]
     }
   }
 
 
-  criarNota(title, note){
-    const newNote = {title, note};
+  criarNota(title, note, categoria_idx){
+    let categoria = null;
+    if(categoria_idx !== ""){
+      categoria = this.state.dataListaDeCategorias[categoria_idx]['title'];
+    } else{
+      return;
+    }
+    
+    const newNote = {title, note, categoria};
     const listNotes = [...this.state.dataNotes, newNote];
     const newState = {...this.state, dataNotes: listNotes};
     this.setState(newState);
@@ -51,7 +62,7 @@ class App extends Component {
   render(){
     return (
       <section className="conteudo">
-        <FormCadastro createNote={this.criarNota.bind(this)} />
+        <FormCadastro categorias={this.state.dataListaDeCategorias} createNote={this.criarNota.bind(this)} />
         <main className="conteudo-principal">
           <ListaDeCategorias listaDeCategorias={this.state.dataListaDeCategorias} doCreateCategoria={this.createCategoria.bind(this)} />
           <ListaDeNotas listNotes={this.state.dataNotes} doDeleteNota={this.deletarNota.bind(this)}/>
