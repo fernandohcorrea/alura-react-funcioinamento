@@ -24,13 +24,13 @@ class App extends Component {
     return (
       <section className="conteudo">
         <FormCadastro
-            categorias={this.categorias.data}
-            createNote={this.notas.add} />
+            categorias={this.categorias}
+            notas={this.notas} />
         <main className="conteudo-principal">
           <ListaDeCategorias 
-            listaDeCategorias={this.categorias.data}
-            doCreateCategoria={this.categorias.add.bind(this.categorias)} />
-          <ListaDeNotas listNotes={this.notas.data} doDeleteNota={this.notas.delete.bind(this.notas)} />
+            categorias={this.categorias}
+          />
+          <ListaDeNotas notas={this.notas} />
         </main>
       </section>
     );

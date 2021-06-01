@@ -4,15 +4,32 @@ import "./listadecategorias.css";
 
 class ListaDeCategorias extends Component {
 
-  constructor(props) {
+  constructor({props, categorias})
+  {
     super(props);
+    this.categorias = categorias;
+    this.handlerNewCategorias = this._handlerNewCategorias.bind(this);
+    this.state = {
+      categorias: []
+    }
+  }
+
+  componentDidMount(){
+    this.categorias.subscribe(this.handlerNewCategorias);
+  }
+
+  componentWillUnmount(){
+    this.categorias.unSubscribe(this.handlerNewCategorias);
+  }
+  
+  _handlerNewCategorias(categorias)
+  {
+    this.setState({...this.state, categorias})
   }
 
   onKeyUp(event){
     if(event.key === 'Enter'){
-      
-      debugger;
-      this.props.doCreateCategoria(event.target.value);
+      this.categorias.add(event.target.value);
     }
   }
 
@@ -20,7 +37,7 @@ class ListaDeCategorias extends Component {
     return (
       <section className="lista-categorias">
         <ul className="lista-categorias_lista">
-          {this.props.listaDeCategorias.map((categoria, index) => {
+          {this.state.categorias.map((categoria, index) => {
             return (
               <li className="lista-categorias_item" key={index}>
                 {categoria.title}

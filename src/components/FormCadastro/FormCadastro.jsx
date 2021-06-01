@@ -4,12 +4,32 @@ import './formcadastro.css'
 
 class FormCadastro extends Component {
 
-  constructor(props) {
+  constructor({props, categorias, notas}) {
     super(props);
 
     this.title = "";
     this.note = "";
     this.categoria = "";
+    this.categorias = categorias;
+    this.notas = notas;
+    this.handlerNewCategorias = this._handlerNewCategorias.bind(this);
+
+    this.state = {
+      categorias: []
+    }
+  }
+
+  componentDidMount(){
+    this.categorias.subscribe(this.handlerNewCategorias);
+  }
+
+  componentWillUnmount(){
+    this.categorias.unSubscribe(this.handlerNewCategorias);
+  }
+  
+  _handlerNewCategorias(categorias)
+  {
+    this.setState({...this.state, categorias})
   }
 
   onChangeTitle(event, scope){
@@ -21,14 +41,14 @@ class FormCadastro extends Component {
   }
 
   onChangeCategoria(event){
-    console.log(event.target.value);
     this.categoria = event.target.value;
   }
 
   onFormCadastroSubmit(event){
     event.preventDefault();
     event.stopPropagation();
-    this.props.createNote(this.title, this.note, this.categoria)
+
+    this.notas.add(this.title, this.note, this.categoria);
   }
 
   render() {
@@ -36,9 +56,9 @@ class FormCadastro extends Component {
       <form className="form-cadastro" onSubmit={this.onFormCadastroSubmit.bind(this)}>
         <select className="form-cadastro-input" onChange={this.onChangeCategoria.bind(this)} >
           <option value=''>--Selecione--</option>
-          {this.props.categorias.map((categoria, idx) =>{
+          {this.state.categorias.map((categoria, idx) => {
             return (
-              <option value={idx}>{categoria.title}</option>
+              <option key={idx} value={idx}>{categoria.title}</option>
             )
           })}
         </select>
